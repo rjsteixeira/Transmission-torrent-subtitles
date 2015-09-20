@@ -42,5 +42,6 @@ fi
   #LANGUAGE_CODE="ja"
   #LANGUAGE_CODE="zh"
 
-filebot -r --output srt --lang $LANGUAGE_CODE -get-subtitles "$MOVIES_DIR"
+#filebot -r --output srt --lang $LANGUAGE_CODE -get-subtitles "$MOVIES_DIR"
+subliminal download -l "$LANGUAGE_CODE" "$MOVIES_DIR"
 exit $?
