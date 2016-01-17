@@ -1,5 +1,6 @@
 #!/bin/bash
-VERSION="0.2"
+VERSION="0.3"
+FILEBOT=/opt/filebot/filebot.sh
 function show_help_txt {
   THISPROG=$(basename $0)
   echo " $THISPROG v$VERSION (license GPLv3)"
@@ -18,7 +19,6 @@ function show_help_txt {
   echo ""
 }
 
-env > /tmp/env.tmp
 
 #Args check
 if [ "$1" ]; then
@@ -38,9 +38,28 @@ fi
   #LANGUAGE_CODE="en"
   #LANGUAGE_CODE="de"
   #LANGUAGE_CODE="fr"
-  LANGUAGE_CODE="es"
+  #LANGUAGE_CODE="es"
   #LANGUAGE_CODE="ja"
   #LANGUAGE_CODE="zh"
+  LANGUAGE_CODE="pt"
 
-filebot -r --output srt --lang $LANGUAGE_CODE -get-subtitles "$MOVIES_DIR"
+
+
+# Set options so there is no expansion when no file found and to ignore case
+shopt -s nullglob
+shopt -s nocaseglob
+
+# So files with spaces work
+SAVEIFS=$IFS #Save the current IFS
+IFS=$(echo -en "\n\b")
+
+# We have to iterate each file because filebot -r no longer works
+for filename in $MOVIES_DIR/*.mp4 $MOVIES_DIR/*.avi $MOVIES_DIR/*.mkv
+do
+        $FILEBOT --output srt --lang $LANGUAGE_CODE -get-subtitles "$filename"
+done
+
+# set the previous IFS
+IFS=$SAVEIFS
+
 exit $?
