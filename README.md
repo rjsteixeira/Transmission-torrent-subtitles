@@ -42,7 +42,7 @@ Edit the `auto_download_subtitles.sh` file, changing the variable `FILEBOT`, exa
 FILEBOT=/opt/filebot/filebot.sh
 ```
 
-## 2.3 set the language you prefere
+## 2.3 set the language you prefer
 Edit the `auto_download_subtitles.sh` file, changing the variable `LANGUAGE_CODE`, example:
 ```
 LANGUAGE_CODE="pt"
